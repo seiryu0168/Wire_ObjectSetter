@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\ImGui">
+      <UniqueIdentifier>{d910d01f-0a12-4978-995c-2db698adf994}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ImGui">
+      <UniqueIdentifier>{1c8952c5-07eb-4d2b-82b0-0fe0d95fd8e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine">
+      <UniqueIdentifier>{6a85c2e4-9360-4796-ab12-bec4e7100eb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Collider">
+      <UniqueIdentifier>{a5f97468-d225-4e03-a9ed-78c75d6e44cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\GameObject">
+      <UniqueIdentifier>{931d0038-8f5d-488b-a809-513b4f240d49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\DirectX_11">
+      <UniqueIdentifier>{08dda351-47b3-4c47-974e-e1601ee8e962}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\ResourceManager">
+      <UniqueIdentifier>{c08edbe2-834c-4fbd-ab53-e8cd5e03f960}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>ソース ファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>ソース ファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
+      <Filter>ソース ファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_win32.cpp">
+      <Filter>ソース ファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_tables.cpp">
+      <Filter>ソース ファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>ソース ファイル\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineTime.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Easing.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugUI.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="InterSceneData.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collider\OBBCollider.cpp">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collider\SphereCollider.cpp">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collider\BoxCollider.cpp">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collider\Collider.cpp">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\BillBoard.cpp">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\Direct3D.cpp">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\Fbx.cpp">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\FbxParts.cpp">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\Input.cpp">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\LineParticle.cpp">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\Math.cpp">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\Particle.cpp">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\Sprite.cpp">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\Texture.cpp">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameObject\Camera.cpp">
+      <Filter>ソース ファイル\Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameObject\GameObject.cpp">
+      <Filter>ソース ファイル\Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameObject\RootJob.cpp">
+      <Filter>ソース ファイル\Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameObject\Transform.cpp">
+      <Filter>ソース ファイル\Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ResourceManager\Audio.cpp">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ResourceManager\ImageManager.cpp">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ResourceManager\Model.cpp">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ResourceManager\TextureManager.cpp">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\Direct2D.cpp">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Main.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ResourceManager\Text.cpp">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collider\PolygonCollider.cpp">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ResourceManager\CsvReader.cpp">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingObject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingObjectManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraController.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="FlieExporter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>ヘッダー ファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_textedit.h">
+      <Filter>ヘッダー ファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_rectpack.h">
+      <Filter>ヘッダー ファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_internal.h">
+      <Filter>ヘッダー ファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_win32.h">
+      <Filter>ヘッダー ファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_dx11.h">
+      <Filter>ヘッダー ファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>ヘッダー ファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>ヘッダー ファイル\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineTime.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Easing.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugUI.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SAFE_DELETE_RELEASE.h">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager.h">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="InterSceneData.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collider\Collider.h">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collider\OBBCollider.h">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collider\SphereCollider.h">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collider\BoxCollider.h">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\BillBoard.h">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\Direct3D.h">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\Fbx.h">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\FbxParts.h">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\Input.h">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\LineParticle.h">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\Math.h">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\Particle.h">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\Sprite.h">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\Texture.h">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObject\Camera.h">
+      <Filter>ソース ファイル\Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObject\GameObject.h">
+      <Filter>ソース ファイル\Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObject\RootJob.h">
+      <Filter>ソース ファイル\Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObject\Transform.h">
+      <Filter>ソース ファイル\Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ResourceManager\Audio.h">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ResourceManager\ImageManager.h">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ResourceManager\Model.h">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ResourceManager\TextureManager.h">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\Direct2D.h">
+      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ResourceManager\Text.h">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collider\PolygonCollider.h">
+      <Filter>ソース ファイル\Engine\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ResourceManager\json.hpp">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ResourceManager\CsvReader.h">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingObject.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingObjectManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraController.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="FlieExporter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Simple3D.hlsl" />
+    <FxCompile Include="Simple2D.hlsl" />
+    <FxCompile Include="BillBoard.hlsl" />
+    <FxCompile Include="OutLine.hlsl" />
+    <FxCompile Include="ToonShader.hlsl" />
+    <FxCompile Include="newSimple3D.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Dialog.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

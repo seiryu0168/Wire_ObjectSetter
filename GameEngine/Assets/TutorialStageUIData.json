@@ -1,0 +1,22 @@
+{
+  "UIData": [
+    {
+      "TutorialOrder": [
+        {
+          "TextList": {
+            "Text1": [
+              "Tutorial",
+              [ 0, 0,500,100 ]
+            ]
+          },
+          "ImageList": {
+            "Image1": [
+              "ControlImage.png",
+              [1400,0,0]
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

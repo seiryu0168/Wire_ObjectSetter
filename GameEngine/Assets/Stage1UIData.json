@@ -1,0 +1,20 @@
+{
+  "UIData": [
+    {
+      "MissionOrder": [
+        {
+          "TextList": {
+            "Text1": [
+              "EnemyDestroy!",
+              [ 0, 0,600,100 ]
+            ],
+            "Text2": [
+              "Enemy2",
+              [0,0,500,100]
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

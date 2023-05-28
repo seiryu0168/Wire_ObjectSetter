@@ -1,0 +1,10 @@
+{
+  "StageSelectUIImageList": [
+    {
+      "Button1": [ "Tutorial", "Button1.png", "TutorialStageSelectImage.jpg" ],
+      "Button2": [ "Stage:1", "Button2.png", "Stage1SelectImage.jpg" ],
+      "Button3": [ "Stage:2", "Button3.png", "Stage2SelectImage.jpg" ],
+      "Button4": [ "Stage:3", "Button4.png", "Stage3SelectImage.jpg" ]
+    }
+  ]
+}
