@@ -6,7 +6,8 @@ SettingObject::SettingObject(GameObject* parent,std::string name)
 }
 SettingObject::SettingObject(GameObject* parent)
 	:GameObject(parent, "SettingObject"),
-	hModel_(-1)
+	hModel_(-1),
+	isLoaded(false)
 {
 }
 SettingObject::~SettingObject()
@@ -29,5 +30,9 @@ void SettingObject::DrawModel()
 
 void SettingObject::LoadModel(std::string modelName)
 {
-	hModel_ = ModelManager::Load(modelName);
+	if (isLoaded == false)
+	{
+		hModel_ = ModelManager::Load(modelName);
+		isLoaded = true;
+	}
 }

@@ -6,6 +6,7 @@ private:
 	int hModel_;
 	std::string objectName_;
 	std::string enemyType_;
+	bool isLoaded;
 public:
 	SettingObject(GameObject* parent);
 	SettingObject(GameObject* parent,std::string name);
