@@ -10,6 +10,7 @@ public:
 	~Stage();
 	void Initialize() override;
 	void Draw() override;
+	void LoadModel(std::string modelName);
 	void Release() override;
 };
 

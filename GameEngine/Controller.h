@@ -7,6 +7,11 @@ class Controller : public GameObject
 {
 	SettingObjectManager* SOM_;
 	bool isInputToForm_;
+	bool isSelecting_;
+	bool isFinalConfirmation_;
+	
+
+	std::vector<std::string> nameList_;
 public:
 	Controller(GameObject* parent);
 	~Controller();
@@ -16,7 +21,12 @@ public:
 	void StartUI();
 	void CleanUpUI();
 	void PathForm(GameObject* obj);
+	void AddSettingObject();
+	void CreateStage(std::string stageName);
+	bool YESorNO(std::string message);
+	int	 CountFile();
 	void ControlObjectData(GameObject* parentObject);
+	void Reset();
 	void Release() override;
 };
 

@@ -3,15 +3,26 @@
 #include"ImGui/imgui_impl_win32.h"
 #include"SettingObject.h"
 #include"SettingObjectManager.h"
+#include"Engine/SceneManager.h"
+#include"Stage.h"
+#include<filesystem>
 #include"Engine/DirectX_11/Input.h"
+namespace
+{
+	static const XMINT2 OBJECT_LIST_WINDOW_POS = { 1520, 0 };
+	static const XMINT2 OBJECT_LIST_WINDOW_SIZE = { 400,1080};
+}
 Controller::Controller(GameObject* parent)
 	:GameObject(parent,"Controller"),
-	isInputToForm_(false)
+	isInputToForm_(false),
+	isSelecting_(false),
+	isFinalConfirmation_(false)
 {
 }
 
 Controller::~Controller()
 {
+	SOM_->Release();
 }
 
 void Controller::Initialize()
@@ -25,8 +36,9 @@ void Controller::Update()
 	//SOM_->Update();
 	if (Input::IsKey(DIK_LSHIFT)&&Input::IsKeyDown(DIK_A)&& ImGui::IsAnyItemActive()==false)
 	{
-		SOM_->CreateSettingObject("Enemy");
+		//SOM_->CreateSettingObject("Enemy");
 	}
+	CreateStage("");
 	ControlObjectData(GetParent());
 }
 
@@ -70,7 +82,119 @@ void Controller::PathForm(GameObject* obj)
 		isInputToForm_ = false;
 		((SettingObject*)obj)->LoadModel(buf);
 	}
-	//ImGui::SameLine();
+	
+}
+
+void Controller::AddSettingObject()
+{
+	if (ImGui::Button("AddObject"))
+	{
+		isSelecting_ = !isSelecting_;
+		CountFile();
+	}
+
+
+	if (isSelecting_)
+	{
+		ImGui::TextWrapped("SelectEnemy");
+		//CountFile();
+		for (std::string name : nameList_)
+		{
+			//名前のオブジェクトを生成
+			//(何故かc_strで名前もっていかないと上手く通らない)
+			if (ImGui::Button(name.c_str()))
+				SOM_->CreateSettingObject(name.c_str());
+
+			ImGui::SameLine();
+		}
+	}
+}
+
+void Controller::CreateStage(std::string stageName)
+{
+	ImGui::Begin("Stage");
+	char buf[64] = "";
+	size_t size = 0;
+
+	isInputToForm_ = ImGui::InputText("ModelPath", buf, sizeof(buf));
+	
+	if (Input::IsKeyDown(DIK_RETURN)&& ImGui::IsAnyItemActive()==false)
+	{
+			GameObject* pObj = nullptr;
+			if (pObj = FindObject("Stage"))
+			{
+				pObj->KillMe();
+			}
+			isInputToForm_ = false;
+			Stage* pStage = Instantiate<Stage>(GetScene());
+			pStage->LoadModel(buf);
+	}
+	ImGui::End();
+}
+void Controller::Reset()
+{
+	if (ImGui::Button("Reset")||isFinalConfirmation_)
+	{
+		if (YESorNO("本当にリセットしますか？"))
+		{
+			SceneManager* manager = (SceneManager*)FindObject("SceneManager");
+			manager->ChangeScene(SCENE_ID::SCENE_ID_MAIN);
+		}
+	}
+}
+
+bool Controller::YESorNO(std::string message)
+{
+	isFinalConfirmation_ = true;
+	ImGui::Begin(message.c_str());
+	bool isReset = false;
+	if (ImGui::Button("Yes"))
+	{
+		isFinalConfirmation_ == false;
+		isReset = true;
+	}
+	else if (ImGui::Button("No"))
+	{
+		isFinalConfirmation_ == false;
+		isReset = false;
+	}
+	ImGui::End();
+
+	return isReset;
+
+
+}
+
+int Controller::CountFile()
+{
+	//今の作業ディレクトリ取得
+	WCHAR currendDir[MAX_PATH];
+	GetCurrentDirectory(MAX_PATH, currendDir);
+	
+	//ディレクトリ移動
+	SetCurrentDirectory(L"Assets");
+	int fileCount = 0;
+	std::filesystem::recursive_directory_iterator it{ "Image\\IconImage" };
+	std::filesystem::recursive_directory_iterator first;
+	std::filesystem::recursive_directory_iterator last;
+
+	last = std::filesystem::end(it);
+	nameList_.clear();
+	for (first = std::filesystem::begin(it); first != last; first++)
+	{
+		if (std::filesystem::is_directory(*first) == false)
+		{
+			//画像名を切り離す
+			std::string str = first->path().filename().string();
+			std::string name;
+			_splitpath_s(str.c_str(), nullptr, NULL, nullptr, NULL, (char*)name.c_str(), str.size(), nullptr, NULL);
+			nameList_.push_back(name);
+			fileCount++;
+		}
+	}
+	//ディレクトリを戻す
+	SetCurrentDirectory(currendDir);
+	return fileCount;
 }
 
 void Controller::ControlObjectData(GameObject* parentObject)
@@ -79,7 +203,11 @@ void Controller::ControlObjectData(GameObject* parentObject)
 	{
 		return;
 	}
-	ImGui::Begin("ObjectData");
+	bool t = true;
+
+	ImGui::SetNextWindowPos(ImVec2(OBJECT_LIST_WINDOW_POS.x, OBJECT_LIST_WINDOW_POS.y));
+	ImGui::SetNextWindowSize(ImVec2(OBJECT_LIST_WINDOW_SIZE.x, OBJECT_LIST_WINDOW_SIZE.y));
+	ImGui::Begin("ObjectData", &t,ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings);
 	for (auto i : *SOM_->GetEnemyList())
 	{
 		std::string str = i->GetSettingObjectName().c_str();
@@ -98,13 +226,19 @@ void Controller::ControlObjectData(GameObject* parentObject)
 			i->SetScale({ scale[0],scale[1],scale[2] });
 
 
-			PathForm(i);
+			//PathForm(i);
 			bool isDraw = i->IsDraw();
 			ImGui::Checkbox("draw", &isDraw);
 			i->SetDrawFlag(isDraw);
 			ImGui::TreePop();
 		}
+
 	}
+		AddSettingObject();
+		ImGui::SameLine();
+		Reset();
+		
+
 	ImGui::End();
 
 	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

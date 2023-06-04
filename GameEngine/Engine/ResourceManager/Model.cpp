@@ -113,7 +113,7 @@ void ModelManager::AddFbxModel(Fbx* pFbxModel)
 
 void ModelManager::SetTransform(int modelNum, Transform transform)
 {
-	if (modelData_[modelNum] != nullptr)
+	if (modelNum >= 0&&modelData_[modelNum] != nullptr)
 	{
 		modelData_[modelNum]->transform_ = transform;
 	}

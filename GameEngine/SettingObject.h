@@ -5,7 +5,7 @@ class SettingObject : public GameObject
 private:
 	int hModel_;
 	std::string objectName_;
-	std::string enemyType_;
+	int objectNum_;
 	bool isLoaded;
 public:
 	SettingObject(GameObject* parent);
@@ -13,6 +13,8 @@ public:
 	~SettingObject();
 	std::string GetSettingObjectName() { return objectName_; }
 	void SetSettingObjectName(const std::string& name);
+	void SetObjectNum(int num) { objectNum_ = num; }
+	int GetObjectNum() { return objectNum_; }
 	void DrawModel();
 	void LoadModel(std::string modelName);
 };

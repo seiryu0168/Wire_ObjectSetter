@@ -48,8 +48,8 @@ namespace Direct3D
 	extern ID3D11DeviceContext* pContext;		//デバイスコンテキスト
 	
 
-	extern int screenWidth;
-	extern int screenHeight;
+	//extern int screenWidth;
+	//extern int screenHeight;
 	
 
 	//初期化

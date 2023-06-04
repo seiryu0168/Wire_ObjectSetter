@@ -7,8 +7,7 @@ SettingObjectManager::SettingObjectManager(GameObject* scene)
 
 SettingObjectManager::~SettingObjectManager()
 {
-	enemyObjectList_.clear();
-	settingObjectList_.clear();
+	Release();
 }
 
 void SettingObjectManager::Update()
@@ -30,13 +29,23 @@ void SettingObjectManager::CountSettingObject()
 
 void SettingObjectManager::CreateSettingObject(std::string name)
 {
-	if (name == "Enemy")
+	Enemy* pObject = scene_->Instantiate<Enemy>(scene_);
+
+	std::string settingObjectName = name + std::to_string(enemyObjectList_.size());
+	if (name == "EnemyNormal")
 	{
 		//オブジェクト生成+名前設定
-		Enemy* pEnemy = scene_->Instantiate<Enemy>(scene_);
-		std::string settingObjectName = "Enemy" + std::to_string(enemyObjectList_.size());
-		pEnemy->SetSettingObjectName(settingObjectName);
-		enemyObjectList_.push_back(pEnemy);
+		pObject->SetEnemyType(name);
+		pObject->SetSettingObjectName(settingObjectName);
+		pObject->LoadModel("Assets\\Model\\EnemyBall.fbx");
+		enemyObjectList_.push_back(pObject);
+	}
+	if(name=="EnemyTurret")
+	{
+		pObject->SetEnemyType(name);
+		pObject->SetSettingObjectName(settingObjectName);
+		pObject->LoadModel("Assets\\Model\\EnemyTurret.fbx");
+		enemyObjectList_.push_back(pObject);
 	}
 }
 
@@ -49,4 +58,10 @@ void SettingObjectManager::CountEnemy()
 			enemyObjectList_.push_back(i);
 		}
 	}
+}
+
+void SettingObjectManager::Release()
+{
+	settingObjectList_.clear();
+	enemyObjectList_.clear();
 }
