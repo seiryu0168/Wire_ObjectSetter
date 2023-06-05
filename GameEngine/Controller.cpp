@@ -33,10 +33,9 @@ void Controller::Initialize()
 
 void Controller::Update()
 {
-	//SOM_->Update();
-	if (Input::IsKey(DIK_LSHIFT)&&Input::IsKeyDown(DIK_A)&& ImGui::IsAnyItemActive()==false)
+	if (Input::IsKey(DIK_LCONTROL) && Input::IsKeyDown(DIK_S))
 	{
-		//SOM_->CreateSettingObject("Enemy");
+		fileExporter_.SaveFile();
 	}
 	CreateStage("");
 	ControlObjectData(GetParent());
@@ -150,12 +149,12 @@ bool Controller::YESorNO(std::string message)
 	bool isReset = false;
 	if (ImGui::Button("Yes"))
 	{
-		isFinalConfirmation_ == false;
+		isFinalConfirmation_ = false;
 		isReset = true;
 	}
 	else if (ImGui::Button("No"))
 	{
-		isFinalConfirmation_ == false;
+		isFinalConfirmation_ = false;
 		isReset = false;
 	}
 	ImGui::End();

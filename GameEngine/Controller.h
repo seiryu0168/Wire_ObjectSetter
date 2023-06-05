@@ -1,11 +1,12 @@
 #pragma once
 #include"Engine/GameObject/GameObject.h"
 #include"Engine/DirectX_11/Direct3D.h"
+#include"FlieExporter.h"
 class SettingObjectManager;
-
 class Controller : public GameObject
 {
 	SettingObjectManager* SOM_;
+	FileExporter fileExporter_;
 	bool isInputToForm_;
 	bool isSelecting_;
 	bool isFinalConfirmation_;
