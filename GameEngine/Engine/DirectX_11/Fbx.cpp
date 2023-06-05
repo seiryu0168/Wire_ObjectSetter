@@ -39,6 +39,7 @@ HRESULT Fbx::Load(std::string fileName)
 	FbxNode* pNode = rootNode->GetChild(0);
 	if (pNode == nullptr)
 	{
+		MessageBox(nullptr, L"ファイルが存在しません", L"エラー", MB_OK);
 		return E_FAIL;
 	}
 	

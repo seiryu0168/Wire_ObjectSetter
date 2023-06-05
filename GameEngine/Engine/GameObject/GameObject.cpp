@@ -19,10 +19,6 @@ GameObject::GameObject(GameObject* parent, const std::string& name)
 	if(parent)
 	transform_.pParent_ = &parent->transform_;
 }
-GameObject::~GameObject()
-{
-
-}
 
 void GameObject::UpdateSub()
 {

@@ -75,6 +75,8 @@ int ModelManager::Load(std::string fileName)
 		
 		if (FAILED(pModelData->pfbx_->Load(fileName)))
 		{
+			pModelData->pfbx_->Release();
+			SAFE_DELETE(pModelData);
 			return -1;
 		}
 	}

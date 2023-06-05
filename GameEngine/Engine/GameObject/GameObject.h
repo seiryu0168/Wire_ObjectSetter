@@ -32,7 +32,7 @@ protected:
 public:
 	GameObject();
 	GameObject(GameObject* parent, const std::string& name);
-	~GameObject();
+	virtual ~GameObject() {};
 
 	virtual void Initialize() = 0;
 	virtual void Update() {};

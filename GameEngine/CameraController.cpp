@@ -4,7 +4,7 @@ namespace
 {
 	static const XMFLOAT2 CAMERA_ROTATE_LIMIT = { 89.0f,-89.0f };
 	static const XMFLOAT2 CAMERA_ZOOM_LIMIT = { 10.0f,1000.0f };
-	static const XMFLOAT2 CAMERA_MOVE_RATIO = { 5.0f,2.0f };
+	static const XMFLOAT2 CAMERA_MOVE_RATIO = { 0.5f,0.5f };
 }
 CameraController::CameraController(GameObject* parent)
 	:GameObject(parent,"CameraController"),
@@ -25,13 +25,26 @@ void CameraController::Initialize()
 
 void CameraController::Update()
 {
+	Move();
 	Rotate();
 }
 
 void CameraController::Move()
 {
 
-
+	if (Input::IsKey(DIK_LSHIFT) && Input::IsMouseButton(2))
+	{
+		moveVec_ = Input::GetMouseMove();
+		XMVECTOR v = XMVector3Rotate(moveVec_, 
+					 XMQuaternionRotationRollPitchYaw(XMConvertToRadians(camRotate_.x),
+													  XMConvertToRadians(camRotate_.y),
+													  XMConvertToRadians(camRotate_.z)));
+		transform_.position_=StoreFloat3(XMLoadFloat3(&transform_.position_) + v);
+		XMFLOAT3 camPos = Camera::GetPosition();
+		Camera::SetPosition(XMLoadFloat3(&camPos) + v);
+		Camera::SetTarget(XMLoadFloat3(&transform_.position_));
+	
+	}
 	//XMFLOAT3 mouseMove = StoreFloat3(XMVector3Normalize(Input::GetMouseMove()));
 	//if (abs(mouseMove.z) > 0)
 	//{
@@ -58,13 +71,13 @@ void CameraController::Move()
 
 void CameraController::Rotate()
 {
-	XMFLOAT3 musMove = StoreFloat3(XMVector3Normalize(Input::GetMouseMove()));
+	XMFLOAT3 musMove = StoreFloat3(Input::GetMouseMove());
 	XMVECTOR camVec = XMVectorZero();
 	XMMATRIX matRotate;
-	if (Input::IsMouseButton(2))
+	if (Input::IsMouseButton(1))
 	{
-		camRotate_.x += musMove.y* CAMERA_MOVE_RATIO.x;
-		camRotate_.y += musMove.x * CAMERA_MOVE_RATIO.x;
+		camRotate_.x += musMove.y *CAMERA_MOVE_RATIO.x;
+		camRotate_.y += musMove.x *CAMERA_MOVE_RATIO.x;
 		camRotate_.z = 0.0f;
 		camRotate_.x = Clamp<float>(camRotate_.x, CAMERA_ROTATE_LIMIT.y, CAMERA_ROTATE_LIMIT.x);
 

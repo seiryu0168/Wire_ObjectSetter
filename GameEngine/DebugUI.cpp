@@ -24,7 +24,6 @@ void DebugUI::Initialize(HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 	ImGui::StyleColorsDark();
 	ImGui_ImplWin32_Init(hWnd);
 	ImGui_ImplDX11_Init(pDevice,pContext);
-
 }
 
 void DebugUI::Debug(GameObject* object)

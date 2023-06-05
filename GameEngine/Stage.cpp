@@ -25,7 +25,7 @@ void Stage::LoadModel(std::string modelName)
 	if (hModel_ <= -1)
 	{
 		hModel_ = ModelManager::Load(modelName);
-		assert(hModel_ >= 0);
+		//assert(hModel_ >= 0);
 	}
 }
 
