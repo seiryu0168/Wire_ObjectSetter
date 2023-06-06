@@ -25,6 +25,7 @@ public:
 	void AddSettingObject();
 	void CreateStage(std::string stageName);
 	bool YESorNO(std::string message);
+	SettingObjectManager* GetSettingObjectManager() { return SOM_; }
 	int	 CountFile();
 	void ControlObjectData(GameObject* parentObject);
 	void Reset();

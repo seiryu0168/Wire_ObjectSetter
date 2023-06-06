@@ -28,6 +28,7 @@ Controller::~Controller()
 void Controller::Initialize()
 {
 	SOM_ = new SettingObjectManager(GetScene());
+	fileExporter_.SetControlObject(this);
 	//StartUI();
 }
 
@@ -171,11 +172,17 @@ int Controller::CountFile()
 	GetCurrentDirectory(MAX_PATH, currendDir);
 	
 	//ディレクトリ移動
-	SetCurrentDirectory(L"Assets");
+	if (SetCurrentDirectory(L"Assets") == ERROR_FILE_NOT_FOUND)
+	{
+		return 0;
+	}
+	WCHAR cDir[MAX_PATH];
+	GetCurrentDirectory(MAX_PATH, cDir);
 	int fileCount = 0;
-	std::filesystem::recursive_directory_iterator it{ "Image\\IconImage" };
-	std::filesystem::recursive_directory_iterator first;
-	std::filesystem::recursive_directory_iterator last;
+	std::error_code ec;
+	std::filesystem::directory_iterator it{ "Image\\IconImage",ec };
+	std::filesystem::directory_iterator first;
+	std::filesystem::directory_iterator last;
 
 	last = std::filesystem::end(it);
 	nameList_.clear();
@@ -191,6 +198,7 @@ int Controller::CountFile()
 			fileCount++;
 		}
 	}
+
 	//ディレクトリを戻す
 	SetCurrentDirectory(currendDir);
 	return fileCount;
@@ -209,9 +217,9 @@ void Controller::ControlObjectData(GameObject* parentObject)
 	ImGui::Begin("ObjectData", &t,ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings);
 	for (auto i : *SOM_->GetEnemyList())
 	{
-		std::string str = i->GetSettingObjectName().c_str();
+		std::string str = i->GetSettingObjectName()+std::to_string(i->GetObjectNum());
 		//bool k = ImGui::TreeNode((const char*)str.c_str());
-		if (ImGui::TreeNode(i->GetSettingObjectName().c_str()))
+		if (ImGui::TreeNode(str.c_str()))
 		{
 			//座標、回転、サイズの情報を表示
 			float pos[3] = { i->GetPosition().x,i->GetPosition().y ,i->GetPosition().z };
