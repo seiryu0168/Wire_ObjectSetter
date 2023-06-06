@@ -89,11 +89,12 @@ std::string FileExporter::CreateExportFile()
 		XMFLOAT3 rotate = enem->GetRotate();
 		XMFLOAT3 scale = enem->GetScale();
 		std::string objName = enem->GetSettingObjectName();
-		out["InitialEnemyStatus"][i][objName];
-		out["InitialEnemyStatus"][i][objName]["EnemyName"] = objName;
-		out["InitialEnemyStatus"][i][objName]["Position"] = { position.x,position.y,position.z };
-		out["InitialEnemyStatus"][i][objName]["Rotate"] = { rotate.x,rotate.y, rotate.z };
-		out["InitialEnemyStatus"][i][objName]["Scale"] = { scale.x,scale.y, scale.z };
+		out["InitialEnemyStatus"][i][objName]=json::array();
+
+		out["InitialEnemyStatus"][i][objName][0]["EnemyName"] = objName;
+		out["InitialEnemyStatus"][i][objName][0]["Position"] = { position.x,position.y,position.z };
+		out["InitialEnemyStatus"][i][objName][0]["Rotate"] = { rotate.x,rotate.y, rotate.z };
+		out["InitialEnemyStatus"][i][objName][0]["Scale"] = { scale.x,scale.y, scale.z };
 		i++;
 	}
 	outstr = out.dump();

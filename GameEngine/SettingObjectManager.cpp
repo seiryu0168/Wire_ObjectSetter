@@ -46,6 +46,13 @@ void SettingObjectManager::CreateSettingObject(std::string name)
 		pObject->LoadModel("Assets\\Model\\EnemyTurret.fbx");
 		enemyObjectList_.push_back(pObject);
 	}
+	if (name == "EnemyBoss")
+	{
+		pObject->SetObjectNum(enemyObjectList_.size());
+		pObject->SetSettingObjectName(name);
+		pObject->LoadModel("Assets\\Model\\EnemyBossShield.fbx");
+		enemyObjectList_.push_back(pObject);
+	}
 }
 
 void SettingObjectManager::CountEnemy()
