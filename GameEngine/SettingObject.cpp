@@ -14,13 +14,17 @@ SettingObject::~SettingObject()
 {
 }
 
+void SettingObject::Initialize()
+{
+}
+
 void SettingObject::SetSettingObjectName(const std::string& name)
 {
 	objectName_ = name;
 }
 
-void SettingObject::DrawModel()
-{
+void SettingObject::Draw()
+{	
 	if (hModel_ >= 0)
 	{
 		ModelManager::SetTransform(hModel_, transform_);
@@ -35,4 +39,8 @@ void SettingObject::LoadModel(std::string modelName)
 		hModel_ = ModelManager::Load(modelName);
 		isLoaded = true;
 	}
+}
+
+void SettingObject::Release()
+{
 }

@@ -21,7 +21,7 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
-	DrawModel();
+	//DrawModel();
 }
 
 std::string Enemy::SetObjectName(const std::string& defaultName)

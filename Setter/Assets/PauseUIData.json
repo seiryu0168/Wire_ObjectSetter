@@ -1,0 +1,18 @@
+{
+  "PauseUIDataList": [
+    {
+      "Button1": [
+        "Button",
+        "StageSelect",
+        [0,0,500,100],
+        [ -600, -400, 0 ]
+      ],
+      "Button2": [
+        "Button",
+        "Retry",
+        [ 0, 0, 500, 100 ],
+        [ 600, -400, 0 ]
+      ]
+    }
+  ]
+}

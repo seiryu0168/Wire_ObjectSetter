@@ -70,7 +70,7 @@ void Controller::CleanUpUI()
 void Controller::PathForm(GameObject* obj)
 {
 	char buf[64] = "";
-	size_t size=0;
+	size_t size = 0;
 
 	isInputToForm_=ImGui::InputText("ModelPath", buf, sizeof(buf));
 	if (isInputToForm_ == true)
@@ -98,14 +98,16 @@ void Controller::AddSettingObject()
 	{
 		ImGui::TextWrapped("SelectEnemy");
 		//CountFile();
-		for (std::string name : nameList_)
+		for (int i=0;i<nameList_.size();i++)
 		{
 			//名前のオブジェクトを生成
 			//(何故かc_strで名前もっていかないと上手く通らない)
-			if (ImGui::Button(name.c_str()))
-				SOM_->CreateSettingObject(name.c_str());
-
-			ImGui::SameLine();
+			if (ImGui::Button(nameList_[i].c_str()))
+				SOM_->CreateSettingObject(nameList_[i].c_str());
+			if (i % 3 == 0&&i != 0)
+				ImGui::NewLine();
+			else
+				ImGui::SameLine();
 		}
 	}
 }
@@ -135,7 +137,7 @@ void Controller::Reset()
 {
 	if (ImGui::Button("Reset")||isFinalConfirmation_)
 	{
-		if (YESorNO("本当にリセットしますか？"))
+		if (YESorNO("Reset?"))
 		{
 			SceneManager* manager = (SceneManager*)FindObject("SceneManager");
 			manager->ChangeScene(SCENE_ID::SCENE_ID_MAIN);
@@ -176,9 +178,12 @@ int Controller::CountFile()
 	{
 		return 0;
 	}
+
 	WCHAR cDir[MAX_PATH];
 	GetCurrentDirectory(MAX_PATH, cDir);
 	int fileCount = 0;
+	
+	//イテレータ取得
 	std::error_code ec;
 	std::filesystem::directory_iterator it{ "Image\\IconImage",ec };
 	std::filesystem::directory_iterator first;
@@ -204,6 +209,25 @@ int Controller::CountFile()
 	return fileCount;
 }
 
+//int Controller::CountObjectName()
+//{
+//	int objectCount = 0;
+//
+//	//今の作業ディレクトリ取得
+//	WCHAR currendDir[MAX_PATH];
+//	GetCurrentDirectory(MAX_PATH, currendDir);
+//
+//	//ディレクトリ移動
+//	if (SetCurrentDirectory(L"Assets") == ERROR_FILE_NOT_FOUND)
+//	{
+//		return 0;
+//	}
+//	//std::ifstream objectListFile;
+//	//ディレクトリを戻す
+//	SetCurrentDirectory(currendDir);
+//	return objectCount;
+//}
+
 void Controller::ControlObjectData(GameObject* parentObject)
 {
 	if (parentObject == nullptr)
@@ -215,10 +239,9 @@ void Controller::ControlObjectData(GameObject* parentObject)
 	ImGui::SetNextWindowPos(ImVec2(OBJECT_LIST_WINDOW_POS.x, OBJECT_LIST_WINDOW_POS.y));
 	ImGui::SetNextWindowSize(ImVec2(OBJECT_LIST_WINDOW_SIZE.x, OBJECT_LIST_WINDOW_SIZE.y));
 	ImGui::Begin("ObjectData", &t,ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings);
-	for (auto i : *SOM_->GetEnemyList())
+	for (auto i : *SOM_->Get3DObjectList())
 	{
 		std::string str = i->GetSettingObjectName()+std::to_string(i->GetObjectNum());
-		//bool k = ImGui::TreeNode((const char*)str.c_str());
 		if (ImGui::TreeNode(str.c_str()))
 		{
 			//座標、回転、サイズの情報を表示

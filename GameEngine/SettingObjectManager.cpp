@@ -29,30 +29,59 @@ void SettingObjectManager::CountSettingObject()
 
 void SettingObjectManager::CreateSettingObject(std::string name)
 {
-	SettingObject* pObject = scene_->Instantiate<Enemy>(scene_);
+	SettingObject* pObject = scene_->Instantiate<SettingObject>(scene_);
 
 	if (name == "EnemyNormal")
 	{
 		//オブジェクト生成+名前設定
-		pObject->SetObjectNum(enemyObjectList_.size());
+		pObject->SetObjectNum(settingObjectList_.size());
 		pObject->SetSettingObjectName(name);
 		pObject->LoadModel("Assets\\Model\\EnemyBall.fbx");
+		pObject->SetType(OBJECT_TYPE::TYPE_ENEMY);
 		enemyObjectList_.push_back(pObject);
+		settingObjectList_.push_back(pObject);
 	}
-	if(name=="EnemyTurret")
+	else if(name=="EnemyTurret")
 	{
-		pObject->SetObjectNum(enemyObjectList_.size());
+		pObject->SetObjectNum(settingObjectList_.size());
 		pObject->SetSettingObjectName(name);
 		pObject->LoadModel("Assets\\Model\\EnemyTurret.fbx");
+		pObject->SetType(OBJECT_TYPE::TYPE_ENEMY);
 		enemyObjectList_.push_back(pObject);
+		settingObjectList_.push_back(pObject);
 	}
-	if (name == "EnemyBoss")
+	else if (name == "EnemyBoss")
 	{
-		pObject->SetObjectNum(enemyObjectList_.size());
+		pObject->SetObjectNum(settingObjectList_.size());
 		pObject->SetSettingObjectName(name);
 		pObject->LoadModel("Assets\\Model\\EnemyBossShield.fbx");
+		pObject->SetType(OBJECT_TYPE::TYPE_ENEMY);
 		enemyObjectList_.push_back(pObject);
+		settingObjectList_.push_back(pObject);
 	}
+	else if (name == "SpeedUpItem")
+	{
+		pObject->SetObjectNum(settingObjectList_.size());
+		pObject->SetSettingObjectName(name);
+		pObject->LoadModel("Assets\\Model\\SpeedUpItem.fbx");
+		pObject->SetType(OBJECT_TYPE::TYPE_ITEM);
+		itemObjectList_.push_back(pObject);
+		settingObjectList_.push_back(pObject);
+	}
+	else if (name == "SearchUpItem")
+	{
+		pObject->SetObjectNum(settingObjectList_.size());
+		pObject->SetSettingObjectName(name);
+		pObject->LoadModel("Assets\\Model\\SearchUpItem.fbx");
+		pObject->SetType(OBJECT_TYPE::TYPE_ITEM);
+		itemObjectList_.push_back(pObject);
+		settingObjectList_.push_back(pObject);
+	}
+	else
+	{
+		pObject->KillMe();
+	}
+
 }
 
 void SettingObjectManager::CountEnemy()

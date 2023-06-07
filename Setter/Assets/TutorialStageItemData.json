@@ -1,0 +1,20 @@
+{
+  "ItemData": [
+    [
+      "SpeedUpItem",
+      [ -40, 1, 20 ]
+    ],
+    [
+      "SpeedUpItem",
+      [ -20, 1, 20 ]
+    ],
+    [
+      "SearchUpItem",
+      [ 0, 1, 20 ]
+    ],
+    [
+      "SearchUpItem",
+      [ 20, 1, 20 ]
+    ]
+  ]
+}

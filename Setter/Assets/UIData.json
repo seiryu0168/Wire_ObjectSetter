@@ -1,0 +1,14 @@
+{
+  "UIData": [
+    {
+      "MissionOrder": [
+        {
+          "TextList": {"Text1": ["Enemy",[ 0, 0 ]],
+                       "Text2": ["Enemy2",[ 100, 100 ]]
+                      },
+          "Image": [ null, null ]
+        }
+      ]
+    }
+  ]
+}

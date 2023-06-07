@@ -27,6 +27,7 @@ public:
 	bool YESorNO(std::string message);
 	SettingObjectManager* GetSettingObjectManager() { return SOM_; }
 	int	 CountFile();
+	//int  CountObjectName();
 	void ControlObjectData(GameObject* parentObject);
 	void Reset();
 	void Release() override;
