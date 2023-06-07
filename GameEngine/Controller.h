@@ -9,6 +9,7 @@ class Controller : public GameObject
 	FileExporter fileExporter_;
 	bool isInputToForm_;
 	bool isSelecting_;
+	bool isSelectSaveFile_;
 	bool isFinalConfirmation_;
 	
 
@@ -25,6 +26,7 @@ public:
 	void AddSettingObject();
 	void CreateStage(std::string stageName);
 	bool YESorNO(std::string message);
+	void SelectSaveFile();
 	SettingObjectManager* GetSettingObjectManager() { return SOM_; }
 	int	 CountFile();
 	//int  CountObjectName();

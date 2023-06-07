@@ -1,1 +1,1 @@
-{"InitialEnemyStatus":[{"EnemyNormal":[{"EnemyName":"EnemyNormal","Position":[0.0,0.0,0.0],"Rotate":[0.0,0.0,0.0],"Scale":[1.0,1.0,1.0]}]},{"EnemyTurret":[{"EnemyName":"EnemyTurret","Position":[0.0,0.0,0.0],"Rotate":[0.0,0.0,0.0],"Scale":[1.0,1.0,1.0]}]}]}
+{"ItemData":[["SearchUpItem",[0.0,5.0,-42.0]],["SpeedUpItem",[-44.0,9.0,59.0]]]}

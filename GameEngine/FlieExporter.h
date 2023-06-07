@@ -10,7 +10,8 @@ public:
 
 	FileExporter();
 	~FileExporter();
-	void SaveFile();
+	void SaveFile(int num);
+	//std::vector<std::string>(FileExporter::*ExportFuncArray[2])();
 	std::string EnemyExport();
 	std::string ItemExport();
 	void SetControlObject(GameObject* obj) { pControlObject_ = obj; }

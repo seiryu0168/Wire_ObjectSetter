@@ -16,7 +16,8 @@ Controller::Controller(GameObject* parent)
 	:GameObject(parent,"Controller"),
 	isInputToForm_(false),
 	isSelecting_(false),
-	isFinalConfirmation_(false)
+	isFinalConfirmation_(false),
+	isSelectSaveFile_(false)
 {
 }
 
@@ -34,9 +35,10 @@ void Controller::Initialize()
 
 void Controller::Update()
 {
-	if (Input::IsKey(DIK_LCONTROL) && Input::IsKeyDown(DIK_S))
+	if (Input::IsKey(DIK_LCONTROL) && Input::IsKeyDown(DIK_S)||isSelectSaveFile_)
 	{
-		fileExporter_.SaveFile();
+		isSelectSaveFile_ = true;
+		SelectSaveFile();
 	}
 	CreateStage("");
 	ControlObjectData(GetParent());
@@ -165,6 +167,23 @@ bool Controller::YESorNO(std::string message)
 	return isReset;
 
 
+}
+
+void Controller::SelectSaveFile()
+{
+	ImGui::Begin("SelectSaveFile");
+
+	if (ImGui::Button("EnemyFile"))
+	{
+		isSelectSaveFile_ = false;
+		fileExporter_.SaveFile((int)OBJECT_TYPE::TYPE_ENEMY);
+	}
+	if (ImGui::Button("ItemFile"))
+	{
+		isSelectSaveFile_ = false;
+		fileExporter_.SaveFile((int)OBJECT_TYPE::TYPE_ITEM);
+	}
+	ImGui::End();
 }
 
 int Controller::CountFile()

@@ -5,10 +5,10 @@
 #include<sstream>
 #include"SettingObjectManager.h"
 #include"Controller.h"
+	std::string (FileExporter:: *ExportFuncArray[2])() = { &FileExporter::EnemyExport,
+														   &FileExporter::ItemExport};
 namespace
 {
-	std::string (FileExporter::* ExportFuncArray[(int)OBJECT_TYPE::MAX])() = { FileExporter::EnemyExport,
-												   FileExporter::ItemExport };
 }
 FileExporter::FileExporter()
 {
@@ -18,7 +18,7 @@ FileExporter::~FileExporter()
 {
 }
 
-void FileExporter::SaveFile()
+void FileExporter::SaveFile(int num)
 {
 	WCHAR fileName[MAX_PATH]=L"無題.json";//ファイル名
 	
@@ -54,7 +54,7 @@ void FileExporter::SaveFile()
 	DWORD byte = 0;
 	std::ofstream writingFile;
 	
-	std::string exptData = CreateExportFile();
+	std::string exptData = (this->*ExportFuncArray[num])();
 	int a = 0;
 
 	BOOL successWrite = WriteFile(hFile,
@@ -82,19 +82,19 @@ std::string FileExporter::EnemyExport()
 	//オブジェクトマネージャーのポインタ
 	SettingObjectManager* som = ((Controller*)pControlObject_)->GetSettingObjectManager();
 	//エネミーリスト取得
-	std::vector<SettingObject*>* enemyList = som->GetEnemyList();
+	std::vector<SettingObject*> enemyList = *som->GetEnemyList();
 	std::string outstr;
 	json out;
-	int i = 0;
+	
 	out["InitialEnemyStatus"] = json::array();
 	//オブジェクト情報入力
-	for (SettingObject* enem : *enemyList)
+	for (int i = 0;i<enemyList.size(); i++)
 	{
 		out["InitialEnemyStatus"][i] = json::object();
-		XMFLOAT3 position = enem->GetPosition();
-		XMFLOAT3 rotate = enem->GetRotate();
-		XMFLOAT3 scale = enem->GetScale();
-		std::string objName = enem->GetSettingObjectName();
+		XMFLOAT3 position = enemyList[i]->GetPosition();
+		XMFLOAT3 rotate = enemyList[i]->GetRotate();
+		XMFLOAT3 scale = enemyList[i]->GetScale();
+		std::string objName = enemyList[i]->GetSettingObjectName();
 		out["InitialEnemyStatus"][i][objName] = json::array();
 		
 		//座標、回転、拡縮を入力
@@ -104,9 +104,8 @@ std::string FileExporter::EnemyExport()
 		out["InitialEnemyStatus"][i][objName][0]["Scale"] = { scale.x,scale.y, scale.z };
 		i++;
 	}
-	//string型に変形
-	outstr = out.dump();
-	return outstr;
+	//ダンプして返す
+	return out.dump();
 }
 
 std::string FileExporter::ItemExport()
@@ -115,16 +114,18 @@ std::string FileExporter::ItemExport()
 	SettingObjectManager* som = ((Controller*)pControlObject_)->GetSettingObjectManager();
 	
 	//アイテムリスト取得
-	std::vector<SettingObject*>* itemList = som->GetItemList();
+	std::vector<SettingObject*> itemList = *som->GetItemList();
 	json out;
 	int i = 0;
 	out["ItemData"] = json::array();
 	//アイテム情報入力
-	for (SettingObject* itm : *itemList)
+	for (int i=0;i<itemList.size();i++)
 	{
-
+		XMFLOAT3 pos = itemList[i]->GetPosition();
+		out["ItemData"][i] = { itemList[i]->GetSettingObjectName(),{pos.x,pos.y,pos.z} };
 	}
 
+	return out.dump();
 }
 
 std::string FileExporter::CreateExportFile()
