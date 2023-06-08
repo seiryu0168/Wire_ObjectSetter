@@ -4,6 +4,17 @@
 #include"../GameObject/Camera.h"
 #include"Direct3D.h"
 
+#ifdef _DEBUG
+#define _CRTDBG_MAP_ALLOC
+#include<memory>
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#include <crtdbg.h>
+#else
+#define DEBUG_NEW	
+#endif
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif // _DEBUG
 FbxParts::FbxParts()
 {
 	boneNum_ = 0;
@@ -31,28 +42,29 @@ FbxParts::~FbxParts()
 {
 	SAFE_RELEASE(pToonTexture_);
 	SAFE_DELETE(pVertices_);
-	SAFE_RELEASE(pVertexBuffer_);
+	SAFE_DELETE_ARRAY(ppIndex_);
+	SAFE_DELETE(indexCount_);
 
 	for (int i = 0; i < materialCount_; i++)
 	{
 		SAFE_RELEASE(ppIndexBuffer_[i]);
-		SAFE_DELETE(pMaterialList_[i].pTexture);
-		SAFE_DELETE_ARRAY(ppIndex_);
+		SAFE_RELEASE(pMaterialList_[i].pTexture);
 	}
+	SAFE_RELEASE(pVertexBuffer_);
 	SAFE_DELETE_ARRAY(ppIndexBuffer_);
 	SAFE_RELEASE(pConstantBuffer_);
 
-	//SAFE_DELETE(pSkinInfo_);
-	SAFE_DELETE(ppCluster_);
+	SAFE_DELETE_ARRAY(ppCluster_);
 	if (pWeightArray_ != nullptr)
 	{
 		for (int i = 0; i < vertexCount_; i++)
 		{
-			SAFE_DELETE_ARRAY(pWeightArray_);
+			SAFE_DELETE_ARRAY(pWeightArray_[i].pBoneIndex);
+			SAFE_DELETE_ARRAY(pWeightArray_[i].pBoneWeight);
 			SAFE_DELETE_ARRAY(pBoneArray_);
 		}
+			SAFE_DELETE_ARRAY(pWeightArray_);
 	}
-	SAFE_DELETE(indexCount_);
 }
 
 HRESULT FbxParts::Init(FbxNode* pNode)
@@ -71,6 +83,7 @@ HRESULT FbxParts::Init(FbxNode* pNode)
 	CreateConstantBuffer();
 	InitMaterial(pNode);
 	InitSkelton(mesh);
+	//mesh->Destroy();
 	return S_OK;
 }
 
@@ -97,7 +110,7 @@ void FbxParts::Draw(Transform& transform,XMFLOAT4 lineColor)
 		cb.speculer = pMaterialList_[i].speculer;
 		cb.shininess = pMaterialList_[i].shininess;
 		cb.customColor = lineColor;
-		XMVECTOR a = pVertices_[i].tangent;
+
 		D3D11_MAPPED_SUBRESOURCE pdata;
 		Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata); //GPUからのデータアクセスを止める
 		memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));			      //データを値を送る
@@ -196,7 +209,6 @@ void FbxParts::DrawSkinAnime(Transform& transform, FbxTime time, XMFLOAT4 lineCo
 	Draw(transform,lineColor);
 }
 
-
 HRESULT FbxParts::InitVertex(fbxsdk::FbxMesh* mesh)
 {
 	//頂点情報を入れる配列
@@ -205,6 +217,7 @@ HRESULT FbxParts::InitVertex(fbxsdk::FbxMesh* mesh)
 	//全ポリゴン
 	for (DWORD poly = 0; poly < (DWORD)polygonCount_; poly++)
 	{
+		FbxLayerElementUV* pUV = mesh->GetLayer(0)->GetUVs();
 		//3頂点分
 		for (int vertex = 0; vertex < 3; vertex++)
 		{
@@ -216,7 +229,6 @@ HRESULT FbxParts::InitVertex(fbxsdk::FbxMesh* mesh)
 			pVertices_[index].position = XMVectorSet((float)pos[0], (float)pos[1], (float)pos[2], 0.0f);
 
 			//頂点のUV
-			FbxLayerElementUV* pUV = mesh->GetLayer(0)->GetUVs();
 			int uvIndex = mesh->GetTextureUVIndex(poly, vertex, FbxLayerElement::eTextureDiffuse);
 			FbxVector2  uv = pUV->GetDirectArray().GetAt(uvIndex);
 			pVertices_[index].uv = XMVectorSet((float)uv.mData[0], (float)(1.0f - uv.mData[1]), 0.0f, 0.0f);
@@ -249,6 +261,7 @@ HRESULT FbxParts::InitVertex(fbxsdk::FbxMesh* mesh)
 			CalcTangent(pVertices_[index1], pVertices_[index2], pVertices_[index0]);
 			CalcTangent(pVertices_[index2], pVertices_[index0], pVertices_[index1]);
 		}
+
 
 #if 0
 			if (mesh->GetElementTangentCount() > 0)
@@ -328,7 +341,6 @@ HRESULT FbxParts::InitVertex(fbxsdk::FbxMesh* mesh)
 		MessageBox(nullptr, L"頂点データ用バッファの設定に失敗", L"エラー", MB_OK);
 		return hr;
 	}
-
 	return S_OK;
 }
 
@@ -361,7 +373,7 @@ HRESULT FbxParts::InitIndex(fbxsdk::FbxMesh* mesh)
 		}
 		indexCount_[i] = count;
 
-		D3D11_BUFFER_DESC   bd;
+		D3D11_BUFFER_DESC bd;
 		bd.Usage = D3D11_USAGE_DEFAULT;
 		bd.ByteWidth = sizeof(int) * polygonCount_ * 3;
 		bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
@@ -419,7 +431,7 @@ HRESULT FbxParts::InitSkelton(FbxMesh* pMesh)
 		int refNum;
 	};
 
-	POLY_INDEX* polyTable = new POLY_INDEX[vertexCount_];
+	/*POLY_INDEX* polyTable = new POLY_INDEX[vertexCount_];
 	for (int i = 0; i < vertexCount_; i++)
 	{
 		polyTable[i].polyIndex = new int[polygonCount_ * 3];
@@ -440,7 +452,7 @@ HRESULT FbxParts::InitSkelton(FbxMesh* pMesh)
 				}
 			}
 		}
-	}
+	}*/
 
 	//ボーン情報取得
 	boneNum_ = pSkinInfo_->GetClusterCount();
@@ -510,15 +522,17 @@ HRESULT FbxParts::InitSkelton(FbxMesh* pMesh)
 				pose(x, y) = (float)matrix.Get(x, y);
 			}
 		}
+		pBoneArray_[i].bindPose = XMLoadFloat4x4(&pose);
 	}
 
-	//一時的に取っておいたメモリ開放
-	for (int i = 0; i < vertexCount_; i++)
-	{
-		SAFE_DELETE_ARRAY(polyTable[i].polyIndex);
-		SAFE_DELETE_ARRAY(polyTable[i].vertexIndex);
-	}
-	SAFE_DELETE_ARRAY(polyTable);
+	pSkinInfo_->Destroy();
+	////一時的に取っておいたメモリ開放
+	//for (int i = 0; i < vertexCount_; i++)
+	//{
+	//	SAFE_DELETE_ARRAY(polyTable[i].polyIndex);
+	//	SAFE_DELETE_ARRAY(polyTable[i].vertexIndex);
+	//}
+	//SAFE_DELETE_ARRAY(polyTable);
 	return E_NOTIMPL;
 }
 

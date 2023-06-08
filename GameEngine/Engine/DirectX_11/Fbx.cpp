@@ -3,10 +3,21 @@
 #include"../GameObject/Camera.h"
 #include"Math.h"
 #include"Texture.h"
-
+#ifdef _DEBUG
+#define _CRTDBG_MAP_ALLOC
+#include<memory>
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#include <crtdbg.h>
+#else
+#define DEBUG_NEW	
+#endif
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif // _DEBUG
 
 Fbx::Fbx()
 {
+	_CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	animSpeed_ = 0;
 	pFbxManager_ = nullptr;
 	pFbxScene_ = nullptr;
@@ -14,6 +25,7 @@ Fbx::Fbx()
 Fbx::~Fbx()
 {
 	Release();
+	_CrtDumpMemoryLeaks();
 }
 
 //FBXロード
@@ -70,8 +82,8 @@ HRESULT Fbx::Load(std::string fileName)
 	//ディレクトリを元に戻す
 	SetCurrentDirectory(defaultDirectory);
 
-	//マネージャ解放
-	//pFbxManager_->Destroy();
+	pFbxScene_->Destroy();
+	pFbxManager_->Destroy();
 	return S_OK;
 }
 
@@ -416,7 +428,7 @@ void Fbx::DrawToon(Transform& transform, bool isOutLine, int frame)
 	Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
 	if (isOutLine)
 	{
-	Direct3D::SetShader(SHADER_TYPE::SHADER_OUTLINE);
+		Direct3D::SetShader(SHADER_TYPE::SHADER_OUTLINE);
 
 		for (int i = 0; i < parts_.size(); i++)
 		{
@@ -508,7 +520,6 @@ std::string Fbx::GetModelName()
 	return modelName_;
 }
 
-
 void Fbx::Release()
 {
 	for (int i = 0; i < parts_.size(); i++)
@@ -516,17 +527,4 @@ void Fbx::Release()
 		SAFE_DELETE(parts_[i]);
 	}
 	parts_.clear();
-	pFbxScene_->Destroy();
-	pFbxManager_->Destroy();
-
-	/*SAFE_DELETE(indexCount_);
-	SAFE_RELEASE(pConstantBuffer_);
-
-	for (int i = 0; i < materialCount_; i++)
-	{
-		SAFE_RELEASE(pIndexBuffer_[i]);
-	}
-	SAFE_DELETE_ARRAY(pIndexBuffer_);
-
-	SAFE_RELEASE(pVertexBuffer_);*/
 }

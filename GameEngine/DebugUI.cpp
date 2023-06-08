@@ -93,7 +93,7 @@ void DebugUI::GetProcess(DWORD processID)
 	{
 		return;
 	}
-	GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc));
+	GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc));	
 	ImGui::Text(std::to_string(pmc.PagefileUsage).c_str());
 	ImGui::Text(std::to_string(pmc.PeakPagefileUsage).c_str());
 	ImGui::Text(std::to_string(pmc.QuotaPagedPoolUsage).c_str());

@@ -152,6 +152,8 @@ bool Controller::YESorNO(std::string message)
 	isFinalConfirmation_ = true;
 	ImGui::Begin(message.c_str());
 	bool isReset = false;
+	
+	//最終確認
 	if (ImGui::Button("Yes"))
 	{
 		isFinalConfirmation_ = false;
@@ -171,17 +173,28 @@ bool Controller::YESorNO(std::string message)
 
 void Controller::SelectSaveFile()
 {
+	ImGui::SetNextWindowSize(ImVec2(200, 100));
 	ImGui::Begin("SelectSaveFile");
 
+	//エネミー情報を保存
 	if (ImGui::Button("EnemyFile"))
 	{
 		isSelectSaveFile_ = false;
 		fileExporter_.SaveFile((int)OBJECT_TYPE::TYPE_ENEMY);
 	}
+	ImGui::SameLine();
+	
+	//アイテム情報を保存
 	if (ImGui::Button("ItemFile"))
 	{
 		isSelectSaveFile_ = false;
 		fileExporter_.SaveFile((int)OBJECT_TYPE::TYPE_ITEM);
+	}
+
+	//閉じる
+	if (ImGui::Button("Close"))
+	{
+		isSelectSaveFile_ = false;
 	}
 	ImGui::End();
 }

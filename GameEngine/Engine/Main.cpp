@@ -15,6 +15,17 @@
 #include"../ImGui/imgui_impl_dx11.h"
 #include"../ImGui/imgui_impl_win32.h"
 #include"ResourceManager/Audio.h"
+#ifdef _DEBUG
+#define _CRTDBG_MAP_ALLOC
+#include<memory>
+	#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#include <crtdbg.h>
+#else
+	#define DEBUG_NEW	
+#endif
+#ifdef _DEBUG
+	#define new DEBUG_NEW
+#endif // _DEBUG
 
 #pragma comment(lib, "winmm.lib")
 
@@ -35,6 +46,7 @@ RootJob* pRootJob;
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
 {
+	_CrtSetDbgFlag( _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG)| _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 	//ウィンドウクラス(設計)作成
 	WNDCLASSEX wc;
 	wc.cbSize = sizeof(WNDCLASSEX);             //この構造体のサイズ

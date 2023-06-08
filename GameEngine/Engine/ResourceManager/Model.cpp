@@ -1,6 +1,16 @@
 #include "Model.h"
 #include<vector>
-
+#ifdef _DEBUG
+#define _CRTDBG_MAP_ALLOC
+#include<memory>
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#include <crtdbg.h>
+#else
+#define DEBUG_NEW	
+#endif
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif // _DEBUG
 //FBXのポインタを保存しておく所にする予定
 //モデルをコンポーネントにしてゲームオブジェクトが変数を持たないように改良する
 //ModelManager=Fbxの管理、ModelComponent=モデルのロードや各種操作
@@ -44,6 +54,7 @@ namespace ModelManager
 
 void ModelManager::Initialize()
 {
+	_CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	pNormalMap_ = new Texture;
 	WCHAR currentDirectory[MAX_PATH];
 	GetCurrentDirectory(MAX_PATH, currentDirectory);
@@ -80,6 +91,7 @@ int ModelManager::Load(std::string fileName)
 			return -1;
 		}
 	}
+	sizeof(*pModelData->pfbx_);
 	modelData_.push_back(pModelData);
 	return (int)modelData_.size() - 1;
 }
@@ -406,10 +418,13 @@ void ModelManager::Release()
 		//もう参照されてないなら解放
 		if (isRef==false)
 		{
-			SAFE_DELETE(modelData_[i]->pfbx_);
+			SAFE_RELEASE(modelData_[i]->pfbx_);
 		}
 
 		SAFE_DELETE(modelData_[i]);
 	}
+
+	SAFE_RELEASE(pNormalMap_);
 	modelData_.clear();
+	_CrtDumpMemoryLeaks();
 }

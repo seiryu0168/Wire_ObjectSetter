@@ -3,7 +3,7 @@
 Enemy::Enemy(GameObject* parent)
 	:SettingObject(parent)
 {
-	
+
 }
 
 Enemy::~Enemy()

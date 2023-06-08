@@ -19,7 +19,6 @@ private:
 		XMFLOAT4 ambient;	  //アンビエント
 		XMFLOAT4 speculer;    //スペキュラー(ツルツルを表現する奴)
 		float shininess;	  //ハイライトの強さ
-
 	};
 
 	//シェーダーに送る情報をまとめた構造体
@@ -104,8 +103,5 @@ public:
 	FbxSkin* GetSkinInfo() { return pSkinInfo_; }
 	bool GetBonePosition(std::string boneName, XMFLOAT3* position);
 	void RayCast(RayCastData& rayData, Transform& transform);
-
-
-
 };
 
