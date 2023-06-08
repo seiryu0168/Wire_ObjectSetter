@@ -527,4 +527,5 @@ void Fbx::Release()
 		SAFE_DELETE(parts_[i]);
 	}
 	parts_.clear();
+	_CrtDumpMemoryLeaks();
 }

@@ -17,6 +17,7 @@
 #endif // _DEBUG
 FbxParts::FbxParts()
 {
+	_CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	boneNum_ = 0;
 	materialCount_ = 0;
 	polygonCount_ = 0;
@@ -65,6 +66,7 @@ FbxParts::~FbxParts()
 		}
 			SAFE_DELETE_ARRAY(pWeightArray_);
 	}
+	_CrtDumpMemoryLeaks();
 }
 
 HRESULT FbxParts::Init(FbxNode* pNode)
