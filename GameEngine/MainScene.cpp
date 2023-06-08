@@ -16,8 +16,6 @@ void MainScene::Initialize()
 {
 	pControlObject_ = Instantiate<Controller>(this);
 	((Controller*)pControlObject_)->InitUI(Direct3D::GetWindowHandle(), Direct3D::GetDevice(), Direct3D::GetContext());
-	//Instantiate<Enemy>(this);
-	//Instantiate<Enemy>(this);
 	Instantiate<CameraController>(this);
 	Instantiate<Stage>(this);
 

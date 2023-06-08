@@ -46,7 +46,8 @@ RootJob* pRootJob;
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
 {
-	_CrtSetDbgFlag( _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG)| _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	
 	//ウィンドウクラス(設計)作成
 	WNDCLASSEX wc;
 	wc.cbSize = sizeof(WNDCLASSEX);             //この構造体のサイズ
@@ -180,6 +181,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	DebugUI::CleanUp();
 	ImageManager::AllRelease();
 	pRootJob->ReleaseSub();
+	SAFE_DELETE(pRootJob);
 	Input::Release();
 	D2D::Release();
 	Direct3D::Release();

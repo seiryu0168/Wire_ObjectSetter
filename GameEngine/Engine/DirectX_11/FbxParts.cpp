@@ -17,7 +17,6 @@
 #endif // _DEBUG
 FbxParts::FbxParts()
 {
-	_CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	boneNum_ = 0;
 	materialCount_ = 0;
 	polygonCount_ = 0;
@@ -41,16 +40,20 @@ FbxParts::FbxParts()
 
 FbxParts::~FbxParts()
 {
-	SAFE_RELEASE(pToonTexture_);
+	SAFE_RELEASE_DELETE(pToonTexture_);
+
 	SAFE_DELETE(pVertices_);
-	SAFE_DELETE_ARRAY(ppIndex_);
 	SAFE_DELETE(indexCount_);
 
 	for (int i = 0; i < materialCount_; i++)
 	{
+		SAFE_DELETE_ARRAY(ppIndex_[i]);
 		SAFE_RELEASE(ppIndexBuffer_[i]);
-		SAFE_RELEASE(pMaterialList_[i].pTexture);
+		SAFE_RELEASE_DELETE(pMaterialList_[i].pTexture);
+		SAFE_RELEASE_DELETE(pMaterialList_[i].pNormalMap);
 	}
+	SAFE_DELETE_ARRAY(ppIndex_);
+	SAFE_DELETE_ARRAY(pMaterialList_);
 	SAFE_RELEASE(pVertexBuffer_);
 	SAFE_DELETE_ARRAY(ppIndexBuffer_);
 	SAFE_RELEASE(pConstantBuffer_);
@@ -66,7 +69,7 @@ FbxParts::~FbxParts()
 		}
 			SAFE_DELETE_ARRAY(pWeightArray_);
 	}
-	_CrtDumpMemoryLeaks();
+	
 }
 
 HRESULT FbxParts::Init(FbxNode* pNode)

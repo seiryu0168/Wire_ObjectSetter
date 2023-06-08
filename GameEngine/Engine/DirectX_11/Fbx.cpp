@@ -17,7 +17,6 @@
 
 Fbx::Fbx()
 {
-	_CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	animSpeed_ = 0;
 	pFbxManager_ = nullptr;
 	pFbxScene_ = nullptr;
@@ -25,7 +24,6 @@ Fbx::Fbx()
 Fbx::~Fbx()
 {
 	Release();
-	_CrtDumpMemoryLeaks();
 }
 
 //FBXÉçÅ[Éh
@@ -527,5 +525,4 @@ void Fbx::Release()
 		SAFE_DELETE(parts_[i]);
 	}
 	parts_.clear();
-	_CrtDumpMemoryLeaks();
 }
