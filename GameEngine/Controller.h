@@ -34,7 +34,7 @@ public:
 	//int  CountObjectName();
 	void ControlObjectData(GameObject* parentObject);
 	void Reset();
-	void Draw() override;
+	//void Draw() override;
 	void Release() override;
 };
 
