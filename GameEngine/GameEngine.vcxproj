@@ -159,11 +159,9 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CameraController.cpp" />
-    <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="DebugUI.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine\Collider\BoxCollider.cpp" />
     <ClCompile Include="Engine\Collider\Collider.cpp" />
     <ClCompile Include="Engine\Collider\OBBCollider.cpp" />
@@ -192,7 +190,6 @@
     <ClCompile Include="Engine\ResourceManager\Text.cpp" />
     <ClCompile Include="Engine\ResourceManager\TextureManager.cpp" />
     <ClCompile Include="Engine\SceneManager.cpp" />
-    <ClCompile Include="FlieExporter.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
     <ClCompile Include="ImGui\imgui_impl_dx11.cpp" />
@@ -202,16 +199,12 @@
     <ClCompile Include="InterSceneData.cpp" />
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="MainScene.cpp" />
-    <ClCompile Include="SettingObject.cpp" />
-    <ClCompile Include="SettingObjectManager.cpp" />
-    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CameraController.h" />
-    <ClInclude Include="Controller.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="DebugUI.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine\Collider\BoxCollider.h" />
     <ClInclude Include="Engine\Collider\Collider.h" />
     <ClInclude Include="Engine\Collider\OBBCollider.h" />
@@ -241,7 +234,6 @@
     <ClInclude Include="Engine\ResourceManager\TextureManager.h" />
     <ClInclude Include="Engine\SAFE_DELETE_RELEASE.h" />
     <ClInclude Include="Engine\SceneManager.h" />
-    <ClInclude Include="FlieExporter.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_impl_dx11.h" />
@@ -254,9 +246,7 @@
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="EngineTime.h" />
-    <ClInclude Include="SettingObject.h" />
-    <ClInclude Include="SettingObjectManager.h" />
-    <ClInclude Include="Stage.h" />
+    <ClInclude Include="TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BillBoard.hlsl">

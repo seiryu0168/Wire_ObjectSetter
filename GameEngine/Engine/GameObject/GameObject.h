@@ -6,7 +6,7 @@
 #include"../Collider/BoxCollider.h"
 #include"../Collider/SphereCollider.h"
 #include"../Collider/OBBCollider.h"
-//#include"../../Component.h"
+#include"../../Component.h"
 #include<vector>
 #include"Transform.h"
 
@@ -28,6 +28,7 @@ protected:
 	bool isUpdate_;
 	bool startFlag_;					//一回もアクティブになってない場合false
 	bool drawFlag_;						//描画するかどうか
+	std::vector<Component*> componentList_;//コンポーネントリスト
 
 public:
 	GameObject();
@@ -50,24 +51,43 @@ public:
 	void ThirdDrawSub();
 	void ReleaseSub();
 
-
-	//void AddComponent(Component* comp);
-	/*template<class T>
+	template <class T>
+	T* AddComponent(GameObject* atcObj)
+	{
+		T* p;
+		p = new T(atcObj);
+		componentList_.push_back(p);
+	}
+	template<class T>
 	T* GetComponent(int num=0) 
 	{
-		int compNum = 0;
-		for (auto&& i : componentList_)
+		int compnum = 0;
+		for (auto&& i : componentlist_)
 		{
 			if (typeid(T) == typeid(*i))
 			{
-				if(compNum == num)
+				if(compnum == num)
 				return (T*)i;
 
-				compNum++;
+				compnum++;
 			}
 		}
 		return nullptr;
-	}*/
+	}
+
+	template<class T>
+	std::list<Component*> GetComponentList()
+	{
+		std::list<Component*> returnList;
+		for (auto&& i : componentlist_)
+		{
+			if (typeid(T) == typeid(*i))
+			{
+				returnList.push_back(*i);
+			}
+		}
+		return returnList;
+	}
 	//void DeleteComponent(Component* comp);
 
 	template<class T>
