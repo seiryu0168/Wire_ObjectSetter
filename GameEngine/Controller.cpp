@@ -7,6 +7,18 @@
 #include"Stage.h"
 #include<filesystem>
 #include"Engine/DirectX_11/Input.h"
+
+#ifdef _DEBUG
+#define _CRTDBG_MAP_ALLOC
+#include<memory>
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#include <crtdbg.h>
+#else
+#define DEBUG_NEW	
+#endif
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif // _DEBUG
 namespace
 {
 	static const XMINT2 OBJECT_LIST_WINDOW_POS = { 1520, 0 };
@@ -23,7 +35,8 @@ Controller::Controller(GameObject* parent)
 
 Controller::~Controller()
 {
-	SOM_->Release();
+	SAFE_RELEASE_DELETE(SOM_);
+
 }
 
 void Controller::Initialize()
@@ -151,22 +164,22 @@ bool Controller::YESorNO(std::string message)
 {
 	isFinalConfirmation_ = true;
 	ImGui::Begin(message.c_str());
-	bool isReset = false;
+	bool isYes = false;
 	
 	//ç≈èIämîF
 	if (ImGui::Button("Yes"))
 	{
 		isFinalConfirmation_ = false;
-		isReset = true;
+		isYes = true;
 	}
 	else if (ImGui::Button("No"))
 	{
 		isFinalConfirmation_ = false;
-		isReset = false;
+		isYes = false;
 	}
 	ImGui::End();
 
-	return isReset;
+	return isYes;
 
 
 }

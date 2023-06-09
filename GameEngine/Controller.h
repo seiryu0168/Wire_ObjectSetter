@@ -2,9 +2,11 @@
 #include"Engine/GameObject/GameObject.h"
 #include"Engine/DirectX_11/Direct3D.h"
 #include"FlieExporter.h"
+#include"Engine/DirectX_11/Fbx.h"
 class SettingObjectManager;
 class Controller : public GameObject
 {
+	Fbx* fbx;
 	SettingObjectManager* SOM_;
 	FileExporter fileExporter_;
 	bool isInputToForm_;
@@ -32,6 +34,7 @@ public:
 	//int  CountObjectName();
 	void ControlObjectData(GameObject* parentObject);
 	void Reset();
+	void Draw() override;
 	void Release() override;
 };
 
