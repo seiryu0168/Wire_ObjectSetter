@@ -54,11 +54,11 @@ namespace ModelManager
 
 void ModelManager::Initialize()
 {
-	pNormalMap_ = new Texture;
+	//pNormalMap_ = new Texture;
 	WCHAR currentDirectory[MAX_PATH];
 	GetCurrentDirectory(MAX_PATH, currentDirectory);
 	SetCurrentDirectory(L"Assets");
-	pNormalMap_->Load(L"Image\\DefaultNormalMap.jpg");
+	//pNormalMap_->Load(L"Image\\DefaultNormalMap.jpg");
 	SetCurrentDirectory(currentDirectory);
 
 }
@@ -358,7 +358,7 @@ void ModelManager::AllDeleteModelNum()
 
 Texture* ModelManager::GetNormalMap()
 {
-	return pNormalMap_;
+	return nullptr;// pNormalMap_;
 }
 
 //int ModelManager::AddMComponentList(ModelComponent* mComp)
@@ -425,7 +425,7 @@ void ModelManager::Release()
 		SAFE_DELETE(modelData_[i]);
 	}
 
-	SAFE_RELEASE_DELETE(pNormalMap_);
+	//SAFE_RELEASE(pNormalMap_);
 	//SAFE_DELETE(pNormalMap_);
 	modelData_.clear();
 }

@@ -18,8 +18,6 @@ GameObject::GameObject(GameObject* parent, const std::string& name)
 {
 	if(parent)
 	transform_.pParent_ = &parent->transform_;
-
-
 }
 
 void GameObject::UpdateSub()
@@ -247,7 +245,7 @@ void GameObject::KillObjectSub(GameObject* pTarget)
 		for (auto itr = pTarget->childList_.begin(); itr != pTarget->childList_.end();)
 		{
 			KillObjectSub(*itr);
-			SAFE_DELETE(*itr);
+			delete* itr;
 			itr = pTarget->childList_.erase(itr);
 		}
 		pTarget->childList_.clear();
