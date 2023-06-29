@@ -69,24 +69,6 @@ void Controller::CleanUpUI()
 	ImGui::DestroyContext();
 }
 
-void Controller::PathForm(GameObject* obj)
-{
-	char buf[64] = "";
-	size_t size = 0;
-
-	isInputToForm_=ImGui::InputText("ModelPath", buf, sizeof(buf));
-	if (isInputToForm_ == true)
-	{
-		int s = 0;
-	}
-	if (Input::IsKeyDown(DIK_RETURN))
-	{
-		isInputToForm_ = false;
-		((SettingObject*)obj)->LoadModel(buf);
-	}
-	
-}
-
 void Controller::AddSettingObject()
 {
 	if (ImGui::Button("AddObject"))
@@ -122,7 +104,7 @@ void Controller::CreateStage(std::string stageName)
 
 	isInputToForm_ = ImGui::InputText("ModelPath", buf, sizeof(buf));
 	
-	if (Input::IsKeyDown(DIK_RETURN)&& ImGui::IsAnyItemActive()==false)
+	if (Input::IsKeyDown(DIK_RETURN)&& ImGui::IsAnyItemActive()==false&&isInputToForm_)
 	{
 			GameObject* pObj = nullptr;
 			if (pObj = FindObject("Stage"))

@@ -22,7 +22,6 @@ public:
 	void InitUI(HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	void StartUI();
 	void CleanUpUI();
-	void PathForm(GameObject* obj);
 	void AddSettingObject();
 	void CreateStage(std::string stageName);
 	bool YESorNO(std::string message);
